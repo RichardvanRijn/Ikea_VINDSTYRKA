@@ -27,7 +27,23 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+struct __attribute__((packed)) Measurement_Data {					//Receive GPS packet including location time and trigger
+	uint8_t Size;
+	uint16_t PM10;
+	uint8_t PM10_CS;
+	uint16_t PM25;
+	uint8_t PM25_CS;
+	uint16_t PM40;
+	uint8_t PM40_CS;
+	uint16_t PM100;
+	uint8_t PM100_CS;
+	uint16_t HUM;
+	uint8_t HUM_CS;
+	uint16_t TEMP;
+	uint8_t TEMP_CS;
+	uint16_t VOC;
+	uint8_t VOC_CS;
+};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -174,7 +190,12 @@ int main(void)
 	  {
 		  volatile uint8_t size = *(uint8_t *)BufferH; // get the first byte from the buffer this holds the size of the packet
 		  //size = size;
-		  Transmit((uint8_t *)BufferH, size, USART2); // transmit the buffer over the debug uart port
+		  //Transmit((uint8_t *)BufferH, size, USART2); // transmit the buffer over the debug uart port
+		  if (size == 21)
+		  {
+			  struct Measurement_Data *Measurement_Data = (void *) BufferH;
+			  Transmit((uint8_t *)BufferH, Measurement_Data->Size, USART2); // transmit the buffer over the debug uart port
+		  }
 	  }
 	  if (main_State == Reset) // reset the bus state machine
 	  {
