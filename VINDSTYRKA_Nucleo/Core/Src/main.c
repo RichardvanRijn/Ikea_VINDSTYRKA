@@ -194,7 +194,11 @@ int main(void)
 		  if (size == 21)
 		  {
 			  struct Measurement_Data *Measurement_Data = (void *) BufferH;
-			  Transmit((uint8_t *)BufferH, Measurement_Data->Size, USART2); // transmit the buffer over the debug uart port
+			  Transmit(Measurement_Data, sizeof(struct Measurement_Data), USART2); // transmit the buffer over the debug uart port
+//			  Transmit((uint8_t *)BufferH, size + 1, USART2);
+
+
+
 		  }
 	  }
 	  if (main_State == Reset) // reset the bus state machine

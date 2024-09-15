@@ -1,4 +1,4 @@
-../Core/Src/Com.c:21:6:InitCom	2
+../Core/Src/Com.c:21:6:InitCom	1
 ../Core/Src/Com.c:29:6:R_bufferFull	1
 ../Core/Src/Com.c:34:6:R_bufferEmpty	1
 ../Core/Src/Com.c:39:6:R_Push	2
