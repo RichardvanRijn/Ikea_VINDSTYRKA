@@ -14,12 +14,12 @@ The communications sequence is the same every time.
 
 The following data is send during a normal sequence:
 
-#### At Startup
+### At Startup
 0x69 write
 0x00
 0x21
 
-#### Every second
+### Every second
 0x69 write 
 0x02
 0x02
