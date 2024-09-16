@@ -1,6 +1,8 @@
 # Ikea VINDSTYRKA sensor analysis
 
-This repo is a collection off all information I collected about the communication 
+This repo is a collection off all information and observations I gathered about the Ikea VINDSTYRKA sensor.
+
+It is mostly focused on the I2C bus and the sensor.
 
 # I2C Bus data
 
@@ -92,7 +94,7 @@ Read 21 Byte
 | 21..22 | big-endian, int16         | 10           | NOx Index                            |
 | 23     | Checksum for bytes 21, 22 |              |                                      |
 
-(Byte 21-23 are not read because these are only usen in the SEN55 sensor)
+(Byte 21-23 are not read because these are only used in the SEN55 sensor)
 
 Write 0x03D2
 Unknown this address is not described in the publicly avalible datasheet.
