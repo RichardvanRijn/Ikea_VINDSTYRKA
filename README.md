@@ -6,7 +6,7 @@ This repo is a collection off all information I collected about the communicatio
 
 The microcontroller communicates every second with the SEN54 sensor using an I2C bus.
 
-##Bus data
+## Bus data
 
 The communications sequence is the same every time. 
 
@@ -14,12 +14,12 @@ The communications sequence is the same every time.
 
 The following data is send during a normal sequence:
 
-####At Startup
+#### At Startup
 0x69 write
 0x00
 0x21
 
-####Every second
+#### Every second
 0x69 write 
 0x02
 0x02
@@ -104,7 +104,7 @@ read 9 Byte
 
 The last two commands and reads are not in the publicly avalible datasheet, the datasheet described the SEN54-SDN-T and the IKEA VINDSTYRKA has the sensor labeled with SEN54-PON-T.
 
-##STM32 / python code
+## STM32 / python code
 
 I use a nucleo-F303RE because that is what i have avalible to me right now and i have previous experience with STM32 chips. it also has a build in programmer / debugger with a VCP directly available.
 
@@ -120,7 +120,7 @@ The python software oppens the com port and receives the data. there is no propp
 Python waits for a byte that has the value of 21 receives 21 bytes, asumes the next byte is the lenght of the 12 byte packet receives the data and again asumes the next byte is the lenght of the 9 byte packet receives the data.
 if anywhere in the transmission a 21 is transmitted the communication while go out of sync an you will receiv useless data.
 
-##My observations
+## My observations
 Byte 0 - 5 of the 12 unknown bytes are always the same as Byte 0 - 5 of the 9 unknown bytes.
 Byte 9 - 11 of the unknown 12 Byte packet always seem to be 0xFF 0xFF 0xAC
 
@@ -131,22 +131,22 @@ after turning the VINDSTYRKA of and back on again the values correspond again. I
 After the reseting the senor the values on the screen and de analyzer drift appart rapidly (within one minute)
 
 # Contense of the data dump
-####I2C_Vindstyrka.sr
+#### I2C_Vindstyrka.sr
 PulseView file of a I2C Packet captured with an osciloscope
 
-####I2C_Vindstyrka_PulseView_All.png
+#### I2C_Vindstyrka_PulseView_All.png
 Picture of the I2C communication that occures every second
 
-####I2C_Vindstyrka_PulseView_Scope.PNG
+#### I2C_Vindstyrka_PulseView_Scope.PNG
 Image of one packet in pulseview captured with an osciloscope
 
-####I2C_Vindstyrka_PulseView_Packet/png
+#### I2C_Vindstyrka_PulseView_Packet/png
 Image of one packet in pulseview captured with an logic analyzer
 
-####Ikea_VINDSTYRKA_I2C.sal
+#### Ikea_VINDSTYRKA_I2C.sal
 Capture of of the I2C communication that occures every second in Saleae software
 
-####VINDSTYRKA_Pulseview.txt
+#### VINDSTYRKA_Pulseview.txt
 Export of I2C data from PulseView
 
 # Used equipment/Software
