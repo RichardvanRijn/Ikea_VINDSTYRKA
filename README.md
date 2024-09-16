@@ -14,12 +14,12 @@ The communications sequence is the same every time.
 
 The following data is send during a normal sequence:
 
-#####At Startup
+####At Startup
 0x69 write
 0x00
 0x21
 
-#####Every second
+####Every second
 0x69 write 
 0x02
 0x02
@@ -131,22 +131,22 @@ after turning the VINDSTYRKA of and back on again the values correspond again. I
 After the reseting the senor the values on the screen and de analyzer drift appart rapidly (within one minute)
 
 # Contense of the data dump
-#####I2C_Vindstyrka.sr
+####I2C_Vindstyrka.sr
 PulseView file of a I2C Packet captured with an osciloscope
 
-#####I2C_Vindstyrka_PulseView_All.png
+####I2C_Vindstyrka_PulseView_All.png
 Picture of the I2C communication that occures every second
 
-#####I2C_Vindstyrka_PulseView_Scope.PNG
+####I2C_Vindstyrka_PulseView_Scope.PNG
 Image of one packet in pulseview captured with an osciloscope
 
-#####I2C_Vindstyrka_PulseView_Packet/png
+####I2C_Vindstyrka_PulseView_Packet/png
 Image of one packet in pulseview captured with an logic analyzer
 
-#####Ikea_VINDSTYRKA_I2C.sal
+####Ikea_VINDSTYRKA_I2C.sal
 Capture of of the I2C communication that occures every second in Saleae software
 
-#####VINDSTYRKA_Pulseview.txt
+####VINDSTYRKA_Pulseview.txt
 Export of I2C data from PulseView
 
 # Used equipment/Software
