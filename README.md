@@ -10,7 +10,7 @@ The microcontroller communicates every second with the SEN54 sensor using an I2C
 
 The communications sequence is the same every time. 
 
-<img src="Data_Dump\I2C_Vindstyrka_PulseView_All.PNGg" width="500px">
+<img src="Data_Dump\I2C_Vindstyrka_PulseView_All.PNG" width="500px">
 
 The following data is send during a normal sequence:
 
