@@ -354,13 +354,13 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : SDA_Pin_Pin */
   GPIO_InitStruct.Pin = SDA_Pin_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(SDA_Pin_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : SCL_Pin_Pin */
   GPIO_InitStruct.Pin = SCL_Pin_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(SCL_Pin_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
