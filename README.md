@@ -9,11 +9,12 @@ The microcontroller communicates every second with the SEN54 sensor using an I2C
 ##Bus data
 
 The communications sequence is the same every time. 
+
 <img src="I2C_Vindstyrka_PulseView_All.PNGg" width="500px">
 
-The following data is send over the bus:
+The following data is send during a normal sequence:
 
-#####Stasrtup
+#####At Startup
 0x69 write
 0x00
 0x21
@@ -66,8 +67,10 @@ Byte # Description
 0x01: new measurements ready to read
 2 Checksum for bytes 0, 1
 
+If there are no new measurements avalible the rest of the sequence is not transmitted and the controller waits for the next second.
+
 Write 0x03C4 
-Set address pointer to Read Measured Values 
+Set address pointer to Read Measured Values. 
 
 Read 21 Byte
 | Byte#  | Datatype                  | Scale factor | Description                          |
@@ -91,17 +94,40 @@ Read 21 Byte
 (Byte 21-23 are not read because these are only usen in the SEN55 sensor)
 
 Write 0x03D2
-Unknown this address is not described in the publicly avalible datasheet
+Unknown this address is not described in the publicly avalible datasheet.
 read 12 Byte 
 
 Write 0x03F5
-Unknown this address is not described in the publicly avalible datasheet
+Unknown this address is not described in the publicly avalible datasheet.
 read 9 Byte 
 
 The last two commands and reads are not in the publicly avalible datasheet, the datasheet described the SEN54-SDN-T and the IKEA VINDSTYRKA has the sensor labeled with SEN54-PON-T.
 
-#STM32 / python code
+##STM32 / python code
 
+I use a nucleo-F303RE because that is what i have avalible to me right now and i have previous experience with STM32 chips. it also has a build in programmer / debugger with a VCP directly available.
+
+The STM32 code uses Pin PA8(SDA) and PA9(SCL) in external interupt mode to function as the inputs for the software I2C sniffer.
+I made the software I2C sniffer specificly for the Ikea VINDSTYRKA, this means is operate on several assumption:
+
+1. During a normal start bit the SCL line goes from high to low the SDA line should be low, in the VINDSTYRKA this is not the case. The SDA line is already rising when the SCL line is falling.
+2. The last byte of a read transmission is ended with a nack followed by the stop bit
+3. Repeated start is not used so i did not impliment it
+4. Write blocks are ignored
+
+The python software oppens the com port and receives the data. there is no propper synchronization between any of the serial communication.
+Python waits for a byte that has the value of 21 receives 21 bytes, asumes the next byte is the lenght of the 12 byte packet receives the data and again asumes the next byte is the lenght of the 9 byte packet receives the data.
+if anywhere in the transmission a 21 is transmitted the communication while go out of sync an you will receiv useless data.
+
+##My observations
+Byte 0 - 5 of the 12 unknown bytes are always the same as Byte 0 - 5 of the 9 unknown bytes.
+Byte 9 - 11 of the unknown 12 Byte packet always seem to be 0xFF 0xFF 0xAC
+
+During my testing i also noted that the temperature and the Humidity on the display do not always correspond with the values i get from the sensor. first i thought this might be some read erros because i use a questionable software implimentation of a I2C sniffer, but I get the same results with my logic analyzer.
+
+after turning the VINDSTYRKA of and back on again the values correspond again. I also do use a heatgun to make the values change quite quickly.
+
+After the reseting the senor the values on the screen and de analyzer drift appart rapidly (within one minuit)
 
 # Contense of the data dump
 #####I2C_Vindstyrka.sr
@@ -121,3 +147,19 @@ Capture of of the I2C communication that occures every second in Saleae software
 
 #####VINDSTYRKA_Pulseview.txt
 Export of I2C data from PulseView
+
+# Used equipment/Software
+
+[Generic USB Logic analyzer](https://sigrok.org/wiki/128axc-based_USBee_AX-Pro_clone "Logic Analyzer") (Looks like this)
+
+[Rigol DS1054Z oscilloscope](https://eu.rigol.com/products/detail/DS1000Z.html "Rigol DS1054Z")
+
+[STM32 Nucleo-F303RE](https://www.st.com/en/evaluation-tools/nucleo-f303re.html "STM32-Nulceo-F303RE")
+
+[PulseView](https://sigrok.org/wiki/Main_Page "PulseView") (Great free signal analysis software)
+
+[Python](https://www.python.org/ "Python") (Great scripting language)
+
+[Saleae](https://www.saleae.com/ "Saleaeaeaeaeaeae") Logic 2 (Somehow the USB analyzer works with the saleae software, shoutout to saleae for making amazing software. If you ever need a professional logic analyzer buy a saleae Logic pro 8 easily the best logic analyzer I ever used.)
+
+

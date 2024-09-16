@@ -191,14 +191,15 @@ int main(void)
 		  volatile uint8_t size = *(uint8_t *)BufferH; // get the first byte from the buffer this holds the size of the packet
 		  //size = size;
 		  //Transmit((uint8_t *)BufferH, size, USART2); // transmit the buffer over the debug uart port
-		  if (size == 21)
+		  /*if (size == 21)
 		  {
 			  struct Measurement_Data *Measurement_Data = (void *) BufferH;
 			  Transmit(Measurement_Data, sizeof(struct Measurement_Data), USART2); // transmit the buffer over the debug uart port
 //			  Transmit((uint8_t *)BufferH, size + 1, USART2);
-
-
-
+		  }*/ // could make packets for all the data block but am to lazy
+		  if (size == 9 || size == 12 || size == 21)
+		  {
+			  Transmit((uint8_t *)BufferH, size + 1, USART2);
 		  }
 	  }
 	  if (main_State == Reset) // reset the bus state machine
