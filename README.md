@@ -165,4 +165,7 @@ Export of I2C data from PulseView
 
 [Saleae](https://www.saleae.com/ "Saleaeaeaeaeaeae") Logic 2 (Somehow the USB analyzer works with the saleae software, shoutout to saleae for making amazing software. If you ever need a professional logic analyzer buy a saleae Logic pro 8 easily the best logic analyzer I ever used.)
 
+# ToDO
+
+Improve the communication between the Nucleo and Python
 
