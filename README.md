@@ -10,7 +10,7 @@ The microcontroller communicates every second with the SEN54 sensor using an I2C
 
 The communications sequence is the same every time. 
 
-<img src="I2C_Vindstyrka_PulseView_All.PNGg" width="500px">
+<img src="Data_Dump\I2C_Vindstyrka_PulseView_All.PNGg" width="500px">
 
 The following data is send during a normal sequence:
 
@@ -91,6 +91,7 @@ Read 21 Byte
 | 20     | Checksum for bytes 18, 19 |              |                                      |
 | 21..22 | big-endian, int16         | 10           | NOx Index                            |
 | 23     | Checksum for bytes 21, 22 |              |                                      |
+
 (Byte 21-23 are not read because these are only usen in the SEN55 sensor)
 
 Write 0x03D2
@@ -127,7 +128,7 @@ During my testing i also noted that the temperature and the Humidity on the disp
 
 after turning the VINDSTYRKA of and back on again the values correspond again. I also do use a heatgun to make the values change quite quickly.
 
-After the reseting the senor the values on the screen and de analyzer drift appart rapidly (within one minuit)
+After the reseting the senor the values on the screen and de analyzer drift appart rapidly (within one minute)
 
 # Contense of the data dump
 #####I2C_Vindstyrka.sr
