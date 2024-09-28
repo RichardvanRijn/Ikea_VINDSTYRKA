@@ -119,8 +119,9 @@ I made the software I2C sniffer specificly for the Ikea VINDSTYRKA, this means i
 4. Write blocks are ignored
 
 The python software oppens the com port and receives the data. there is no propper synchronization between any of the serial communication.
-Python waits for a byte that has the value of 21 receives 21 bytes, asumes the next byte is the lenght of the 12 byte packet receives the data and again asumes the next byte is the lenght of the 9 byte packet receives the data.
-if anywhere in the transmission a 21 is transmitted the communication while go out of sync an you will receiv useless data.
+Python receives the data and calculates the values for the Measured Values packet and prints the values of all received packets
+The first byte received is asumed to be the size byte and receives the packed based on this size.
+If the python code starts during a packet transmissing the receive wil g oout of sync an receive useless data.
 
 ## My observations
 Byte 0 - 5 of the 12 unknown bytes are always the same as Byte 0 - 5 of the 9 unknown bytes.

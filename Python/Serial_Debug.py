@@ -1,4 +1,15 @@
 import serial
+import struct
+
+# data packets from C are __attribute__((packed)) meaning there are no padding bytes
+#21 byte
+format21 = '>HBHBHBHBHBHBHB'
+#12 byte
+format12 = '>HBHBHBHB'
+#9 bye
+format9 = '>HBHBHB'
+#3byte
+format3 = '>HB'
 
 def read_serial_packet(port='COM6', baudrate=115200, timeout=1):
 
@@ -24,85 +35,32 @@ def read_serial_packet(port='COM6', baudrate=115200, timeout=1):
                 packet_length = int.from_bytes(packet_length, byteorder='big')
                 
                 print(f"Expected packet length: {packet_length} bytes")
+                # Read the rest of the packet based on the length
+                ReadData = ser.read(packet_length)
+
                 if packet_length == 21:
-                    for x in range(packet_length):
-                        # Read the rest of the packet based on the length
-                        packet_data = ser.read(1)
-                        # Append received data to the array
-                        data_array.append(packet_data)
+                    # Unpack the binary data to a tuple
+                    size = struct.calcsize(format21)
+                    unpacked_data = struct.unpack(format21, ReadData)
+                    unpacked_data = (unpacked_data[0] / 10, unpacked_data[1], unpacked_data[2] / 10, unpacked_data[3], unpacked_data[4] / 10, unpacked_data[5], unpacked_data[6] / 10, unpacked_data[7], unpacked_data[8] / 100, unpacked_data[9], unpacked_data[10] / 200, unpacked_data[11], unpacked_data[12] / 10, unpacked_data[13])
+                elif packet_length == 12:
+                    # Unpack the binary data to a tuple
+                    size = struct.calcsize(format12)
+                    unpacked_data = struct.unpack(format12, ReadData)
+                    unpacked_data = (unpacked_data[0], unpacked_data[1], unpacked_data[2], unpacked_data[3], unpacked_data[4], unpacked_data[5], unpacked_data[6], unpacked_data[7])
+                elif packet_length == 9:
+                    # Unpack the binary data to a tuple
+                    size = struct.calcsize(format9)
+                    unpacked_data = struct.unpack(format9, ReadData)
+                    unpacked_data = (unpacked_data[0], unpacked_data[1], unpacked_data[2], unpacked_data[3], unpacked_data[4], unpacked_data[5])
+                elif packet_length == 3:
+                    # Unpack the binary data to a tuple
+                    size = struct.calcsize(format3)
+                    unpacked_data = struct.unpack(format3, ReadData)
+                    unpacked_data = (unpacked_data[0], unpacked_data[1])
 
-                    print(f"Current data array: {data_array}")
-
-                    PM10 = (( int.from_bytes(data_array[1], byteorder='big') + (int.from_bytes(data_array[0], byteorder='big') * 256) )/ 10)
-                    print(f"PM1.0: {PM10}")
-                    
-                    PM25 = ((int.from_bytes(data_array[4], byteorder='big') + (int.from_bytes(data_array[3], byteorder='big') * 256) ) / 10)
-                    print(f"PM2.5: {PM25}")
-                    
-                    PM40 = ((int.from_bytes(data_array[7], byteorder='big') + (int.from_bytes(data_array[6], byteorder='big') * 256) ) / 10)
-                    print(f"PM4.0: {PM40}")
-                    
-                    PM100 = ((int.from_bytes(data_array[10], byteorder='big') + (int.from_bytes(data_array[9], byteorder='big') * 256) ) / 10)
-                    print(f"PM10: {PM100}")
-                    
-                    HM = ((int.from_bytes(data_array[13], byteorder='big') + (int.from_bytes(data_array[12], byteorder='big') * 256) ) / 100)
-                    print(f"Humidity: {HM}")
-
-                    TEMP = ((int.from_bytes(data_array[16], byteorder='big') + (int.from_bytes(data_array[15], byteorder='big') * 256) ) / 200)
-                    print(f"Temperature: {TEMP}")
-
-                    VOC = ((int.from_bytes(data_array[19], byteorder='big') + (int.from_bytes(data_array[18], byteorder='big') * 256) ) / 10)
-                    print(f"VOC: {VOC}")
-
-                    print(f"")
-
-                    clear_data_array()
-                    packet_length = ser.read(1)
-                    packet_length = int.from_bytes(packet_length, byteorder='big')
-                    for x in range(packet_length):
-                        # Read the rest of the packet based on the length
-                        packet_data = ser.read(1)
-                        # Append received data to the array
-                        data_array.append(packet_data)
-
-                    D11 = (( int.from_bytes(data_array[1], byteorder='big') + (int.from_bytes(data_array[0], byteorder='big') * 256) )/ 1)
-                    #print(f"D11: {D11}")
-                
-                    D12= (( int.from_bytes(data_array[4], byteorder='big') + (int.from_bytes(data_array[3], byteorder='big') * 256) )/ 1)
-                    #print(f"D12: {D12}")
-
-                    D13 = (( int.from_bytes(data_array[7], byteorder='big') + (int.from_bytes(data_array[6], byteorder='big') * 256) )/ 1)
-                    #print(f"D13: {D13}")
-
-                    D14 = (( int.from_bytes(data_array[10], byteorder='big') + (int.from_bytes(data_array[9], byteorder='big') * 256) )/ 1)
-                    #print(f"D14: {D14}")
-
-                    #print(f"")
-
-                    if int.from_bytes(data_array[11], byteorder='big') == 0x56:
-                        while True:
-                            pass
-
-                    clear_data_array()
-                    packet_length = ser.read(1)
-                    packet_length = int.from_bytes(packet_length, byteorder='big')
-                    for x in range(packet_length):
-                        # Read the rest of the packet based on the length
-                        packet_data = ser.read(1)
-                        # Append received data to the array
-                        data_array.append(packet_data)
-
-                    D21 = (( int.from_bytes(data_array[1], byteorder='big') + (int.from_bytes(data_array[0], byteorder='big') * 256) )/ 1)
-                    print(f"D21: {D21} D11: {D11}")
-                
-                    D22= (( int.from_bytes(data_array[4], byteorder='big') + (int.from_bytes(data_array[3], byteorder='big') * 256) )/ 1)
-                    print(f"D21: {D22} D2: {D12}")
-
-                    D23 = (( int.from_bytes(data_array[7], byteorder='big') + (int.from_bytes(data_array[6], byteorder='big') * 256) )/ 1)
-                    print(f"D23: {D23} D13: {D13}")
-                    print(f"D14: {D14}")
-
-                    print(f"")
+                print(unpacked_data)
+                print(f"")
                 clear_data_array()
 
     except serial.SerialException as e:

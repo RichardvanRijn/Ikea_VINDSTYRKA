@@ -197,7 +197,7 @@ int main(void)
 			  Transmit(Measurement_Data, sizeof(struct Measurement_Data), USART2); // transmit the buffer over the debug uart port
 //			  Transmit((uint8_t *)BufferH, size + 1, USART2);
 		  }*/ // could make packets for all the data block but am to lazy
-		  if (size == 9 || size == 12 || size == 21)
+		  if (size == 9 || size == 12 || size == 21 || size == 3)
 		  {
 			  Transmit((uint8_t *)BufferH, size + 1, USART2);
 		  }
