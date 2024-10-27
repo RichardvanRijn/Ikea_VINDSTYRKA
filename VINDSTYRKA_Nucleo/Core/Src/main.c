@@ -27,7 +27,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-struct __attribute__((packed)) Measurement_Data {					//Receive GPS packet including location time and trigger
+struct __attribute__((packed)) Measurement_Data {					//Measurement values struct
 	uint8_t Size;
 	uint16_t PM10;
 	uint8_t PM10_CS;

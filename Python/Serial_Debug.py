@@ -11,7 +11,7 @@ format9 = '>HBHBHB'
 #3byte
 format3 = '>HB'
 
-def read_serial_packet(port='COM6', baudrate=115200, timeout=1):
+def read_serial_packet(port='COM3', baudrate=115200, timeout=1):
 
     def clear_data_array():
 #        Clear the data array.
@@ -43,21 +43,21 @@ def read_serial_packet(port='COM6', baudrate=115200, timeout=1):
                     size = struct.calcsize(format21)
                     unpacked_data = struct.unpack(format21, ReadData)
                     unpacked_data = (unpacked_data[0] / 10, unpacked_data[1], unpacked_data[2] / 10, unpacked_data[3], unpacked_data[4] / 10, unpacked_data[5], unpacked_data[6] / 10, unpacked_data[7], unpacked_data[8] / 100, unpacked_data[9], unpacked_data[10] / 200, unpacked_data[11], unpacked_data[12] / 10, unpacked_data[13])
-                elif packet_length == 12:
-                    # Unpack the binary data to a tuple
-                    size = struct.calcsize(format12)
-                    unpacked_data = struct.unpack(format12, ReadData)
-                    unpacked_data = (unpacked_data[0], unpacked_data[1], unpacked_data[2], unpacked_data[3], unpacked_data[4], unpacked_data[5], unpacked_data[6], unpacked_data[7])
-                elif packet_length == 9:
-                    # Unpack the binary data to a tuple
-                    size = struct.calcsize(format9)
-                    unpacked_data = struct.unpack(format9, ReadData)
-                    unpacked_data = (unpacked_data[0], unpacked_data[1], unpacked_data[2], unpacked_data[3], unpacked_data[4], unpacked_data[5])
-                elif packet_length == 3:
-                    # Unpack the binary data to a tuple
-                    size = struct.calcsize(format3)
-                    unpacked_data = struct.unpack(format3, ReadData)
-                    unpacked_data = (unpacked_data[0], unpacked_data[1])
+                # elif packet_length == 12:
+                #     # Unpack the binary data to a tuple
+                #     size = struct.calcsize(format12)
+                #     unpacked_data = struct.unpack(format12, ReadData)
+                #     unpacked_data = (unpacked_data[0], unpacked_data[1], unpacked_data[2], unpacked_data[3], unpacked_data[4], unpacked_data[5], unpacked_data[6], unpacked_data[7])
+                # elif packet_length == 9:
+                #     # Unpack the binary data to a tuple
+                #     size = struct.calcsize(format9)
+                #     unpacked_data = struct.unpack(format9, ReadData)
+                #     unpacked_data = (unpacked_data[0], unpacked_data[1], unpacked_data[2], unpacked_data[3], unpacked_data[4], unpacked_data[5])
+                # elif packet_length == 3:
+                #     # Unpack the binary data to a tuple
+                #     size = struct.calcsize(format3)
+                #     unpacked_data = struct.unpack(format3, ReadData)
+                #     unpacked_data = (unpacked_data[0], unpacked_data[1])
 
                 print(unpacked_data)
                 print(f"")
@@ -69,4 +69,4 @@ def read_serial_packet(port='COM6', baudrate=115200, timeout=1):
         print("Program terminated by user.")
 
 # Ensure that you provide the correct port for your system (e.g., COM3 on Windows or /dev/ttyUSB0 on Linux)
-read_serial_packet(port='COM6', baudrate=115200, timeout=1)
+read_serial_packet(port='COM3', baudrate=115200, timeout=1)
