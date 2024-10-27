@@ -1,0 +1,5 @@
+../Core/Src/Com.c:21:6:InitCom	16	static
+../Core/Src/Com.c:29:6:R_bufferFull	4	static
+../Core/Src/Com.c:34:6:R_bufferEmpty	4	static
+../Core/Src/Com.c:39:6:R_Push	24	static
+../Core/Src/Com.c:56:6:R_Pop	24	static

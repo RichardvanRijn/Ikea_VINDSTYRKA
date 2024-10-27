@@ -1,3 +1,0 @@
-../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_gpio.c:118:13:LL_GPIO_DeInit	9
-../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_gpio.c:193:13:LL_GPIO_Init	7
-../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_gpio.c:266:6:LL_GPIO_StructInit	1
