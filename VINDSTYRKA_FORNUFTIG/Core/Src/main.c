@@ -354,14 +354,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(SDA_Pin_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SW_POS_OUT_1_Pin SW_POS_OUT_2_Pin SW_POS_OUT_3_Pin SW_POS_OUT_4_Pin
-                           Mode_Led_Pin */
-  GPIO_InitStruct.Pin = SW_POS_OUT_1_Pin|SW_POS_OUT_2_Pin|SW_POS_OUT_3_Pin|SW_POS_OUT_4_Pin
-                          |Mode_Led_Pin;
+  /*Configure GPIO pins : SW_POS_OUT_1_Pin SW_POS_OUT_2_Pin SW_POS_OUT_3_Pin SW_POS_OUT_4_Pin */
+  GPIO_InitStruct.Pin = SW_POS_OUT_1_Pin|SW_POS_OUT_2_Pin|SW_POS_OUT_3_Pin|SW_POS_OUT_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Mode_Led_Pin */
+  GPIO_InitStruct.Pin = Mode_Led_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(Mode_Led_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : Mode_Switch_1_Pin Mode_Switch_2_Pin */
   GPIO_InitStruct.Pin = Mode_Switch_1_Pin|Mode_Switch_2_Pin;

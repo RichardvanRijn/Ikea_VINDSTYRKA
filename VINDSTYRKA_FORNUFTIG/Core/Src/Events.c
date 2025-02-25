@@ -161,18 +161,18 @@ void Update_Output(void)
 
 		case Manual: //
 			value_out = speed_switch;
-			HAL_GPIO_WritePin(Mode_Led_GPIO_Port, Mode_Led_Pin, 1);
+			HAL_GPIO_WritePin(Mode_Led_GPIO_Port, Mode_Led_Pin, 0);
 			break;
 		case Auto: //
 				value_out = Cal_Auto_Value();
-				HAL_GPIO_WritePin(Mode_Led_GPIO_Port, Mode_Led_Pin, !(value_out > 1));
+				HAL_GPIO_WritePin(Mode_Led_GPIO_Port, Mode_Led_Pin, (value_out > 1));
 			break;
 		case Manual_Auto: //
 			uint8_t manual_out = speed_switch;
 			uint8_t auto_out = Cal_Auto_Value();
 
 			value_out = (manual_out > auto_out) ? manual_out : auto_out;
-			HAL_GPIO_WritePin(Mode_Led_GPIO_Port, Mode_Led_Pin, !(auto_out > manual_out));
+			HAL_GPIO_WritePin(Mode_Led_GPIO_Port, Mode_Led_Pin, (auto_out > manual_out));
 
 			break;
 		default:

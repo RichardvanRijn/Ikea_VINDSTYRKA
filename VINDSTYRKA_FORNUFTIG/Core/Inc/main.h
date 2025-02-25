@@ -98,7 +98,7 @@ void Error_Handler(void);
 #define SW_POS_OUT_3_GPIO_Port GPIOB
 #define SW_POS_OUT_4_Pin GPIO_PIN_15
 #define SW_POS_OUT_4_GPIO_Port GPIOB
-#define Mode_Led_Pin GPIO_PIN_6
+#define Mode_Led_Pin GPIO_PIN_5
 #define Mode_Led_GPIO_Port GPIOB
 #define Mode_Switch_1_Pin GPIO_PIN_7
 #define Mode_Switch_1_GPIO_Port GPIOB
